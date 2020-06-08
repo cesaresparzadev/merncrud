@@ -15,36 +15,38 @@ export default class App extends Component {
   render() {
     return (
       <div className='container'>
-        <Nav auth={this.auth} />
-        <Route
-          path='/'
-          exact
-          render={(props) => <Home auth={this.auth} {...props} />}
-        />
-        <Route
-          path='/callback'
-          render={(props) => <Callback auth={this.auth} {...props} />}
-        />
-        <Route
-          path='/profile'
-          render={(props) =>
-            this.auth.isAuthenticated() ? (
-              <Profile auth={this.auth} {...props} />
-            ) : (
-              <Redirect to='/' />
-            )
-          }
-        />
-        <Route
-          path='/private'
-          render={(props) =>
-            this.auth.isAuthenticated() ? (
-              <Private auth={this.auth} {...props} />
-            ) : (
-              this.auth.login()
-            )
-          }
-        />
+        <Nav className='row' auth={this.auth} />
+        <div className='row'>
+          <Route
+            path='/'
+            exact
+            render={(props) => <Home auth={this.auth} {...props} />}
+          />
+          <Route
+            path='/callback'
+            render={(props) => <Callback auth={this.auth} {...props} />}
+          />
+          <Route
+            path='/profile'
+            render={(props) =>
+              this.auth.isAuthenticated() ? (
+                <Profile auth={this.auth} {...props} />
+              ) : (
+                <Redirect to='/' />
+              )
+            }
+          />
+          <Route
+            path='/private'
+            render={(props) =>
+              this.auth.isAuthenticated() ? (
+                <Private auth={this.auth} {...props} />
+              ) : (
+                this.auth.login()
+              )
+            }
+          />
+        </div>
       </div>
     );
   }
