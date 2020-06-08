@@ -11,7 +11,13 @@ export default class Nav extends Component {
             <Link to='/'>Home</Link>
           </li>
           <li className='nav-item'>
-            <Link to='/profile'>Profile</Link>
+            {isAuthenticated() ? <Link to='/profile'>Profile</Link> : ""}
+          </li>
+          <li className='nav-item'>
+            <Link to='/public'>Public</Link>
+          </li>
+          <li className='nav-item'>
+            {isAuthenticated() ? <Link to='/private'>Private</Link> : ""}
           </li>
           <li className='nav-item'>
             <button onClick={isAuthenticated() ? logout : login}>

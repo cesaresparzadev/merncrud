@@ -7,9 +7,6 @@ export default class Home extends Component {
     return (
       <div>
         <h1>Home</h1>
-        <button onClick={isAuthenticated() ? logout : login}>
-          {isAuthenticated() ? "Log Out" : "Log In"}
-        </button>
       </div>
     );
   }
