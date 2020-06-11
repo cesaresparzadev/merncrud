@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default class Nav extends Component {
   render() {
-    const { isAuthenticated, login, logout } = this.props.auth;
+    const { isAuthenticated, login, logout, userHasScopes } = this.props.auth;
     return (
       <nav className='navbar navbar-expand-lg navbar-light'>
         <button className='navbar-toggler'>
@@ -18,11 +18,13 @@ export default class Nav extends Component {
               {isAuthenticated() ? <Link to='/profile'>Profile</Link> : ""}
             </li>
             <li className='nav-item p-3'>
-              <Link to='/public'>Public</Link>
-            </li>
-            <li className='nav-item p-3'>
               {isAuthenticated() ? <Link to='/private'>Private</Link> : ""}
             </li>
+            {isAuthenticated() && userHasScopes(["read:courses"]) && (
+              <li className='nav-item p-3'>
+                {isAuthenticated() ? <Link to='/courses'>Courses</Link> : ""}
+              </li>
+            )}
           </ul>
         </div>
         <button

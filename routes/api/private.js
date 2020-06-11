@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
+const checkScope = require("express-jwt-authz");
 
 if (!process.env.NODE_ENV) {
   require("dotenv").config();
@@ -28,7 +29,16 @@ const checkJwt = jwt({
 router.get("/", checkJwt, (req, res) => {
   console.log(process.env.REACT_APP_AUTH0_DOMAIN);
   res.json({
-    message: "Hello from private API",
+    message: "API Private Route OK",
+  });
+});
+
+router.get("/course", checkJwt, checkScope(["read:courses"]), (req, res) => {
+  res.json({
+    courses: [
+      { id: 1, title: "Building Apps with React" },
+      { id: 2, title: "Creating reusable React components" },
+    ],
   });
 });
 
