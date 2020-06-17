@@ -9,7 +9,7 @@ export default class Private extends Component {
   }
 
   componentDidMount() {
-    fetch("/api/private", {
+    fetch("private", {
       headers: { Authorization: `Bearer ${this.props.auth.getAccessToken()}` },
     })
       .then((response) => {
